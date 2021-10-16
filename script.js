@@ -3001,7 +3001,7 @@ let wordd = ["abandon",
 "yours",
 "yourself",
 "youth",
-"zone"]
+"zone"];
 let dice = Math.floor(Math.random() * 2999)
 const word = wordd[dice];
 //Transforming the word into an Array
@@ -3011,11 +3011,16 @@ let counter = wordarray.length;
 
 //Defining the hangman word and populating with _ at the beginning
 let hangman = [];
+
 for (let i = 0; i < wordarray.length; i++) {
     hangman.push(" _");
 }
+
 //The array that is holding all the typed letters
 let guessedletters = [];
+let guessedlettersUppercased = () => {
+    return guessedletters.toString().toUpperCase();
+}
 
 let showfig = function (param) {
     let man = param;
@@ -3078,8 +3083,8 @@ if (start_input.toLowerCase() === "quit"){
         if (word_input.length == 1){
             //Checking if the user has already typed that character
             if ( guessedletters.includes(word_input) ){
-                console.log("You have already typed " + word_input);
-                console.log(guessedletters);
+                console.log("You have already typed " + word_input.toUpperCase());
+                console.log("All Letters that you have typed: " + guessedlettersUppercased());
             } else {
                 guessedletters.push(word_input);
                 //If not then start the logic
@@ -3087,7 +3092,7 @@ if (start_input.toLowerCase() === "quit"){
                     for (let i = 0; i < wordarray.length; i++) {
                         //Checking if the Hangman word has the character that user has typed
                         if (word_input == wordarray[i]){
-                            hangman[i] = word_input;
+                            hangman[i] = " " + word_input;
                             counter--;
                             if(counter == 0){
                                 console.log("You won");
@@ -3098,7 +3103,7 @@ if (start_input.toLowerCase() === "quit"){
                 } else {
                     mistakes++;
                     showfig(mistakes);
-                    console.log("You have already tried the following letters: " + guessedletters)
+                    console.log("All Letters that you have typed: " + guessedlettersUppercased());
                     if (mistakes == 6){
                         console.log("Game over");
                         console.log("The word was " + word);
